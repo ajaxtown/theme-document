@@ -25,7 +25,7 @@ export default class Article extends Component {
         });
         const content = post.mode == "markdown" ? post.mdPreview : post.body;
         return (
-            <div className="col-lg-8 col-lg-offset-2">
+            <div className="col-lg-8 col-lg-offset-2 content">
                 <div className="card">
                     <article className="post">
                         <div className="post-header">

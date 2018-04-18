@@ -39,8 +39,9 @@ export default class SearchWrapper extends Component {
             let result = await appoloClient.query({
                 query: SEARCH_POSTS,
                 variables: {
-                    query:
-                        '{ "like": "%' + this.props.match.params.query + '%" }',
+                    query: JSON.stringify({
+                        $like: "%" + this.props.match.params.query + "%"
+                    }),
                     limit: config.itemsPerPage,
                     offset: offset
                 }
@@ -113,7 +114,9 @@ export default class SearchWrapper extends Component {
             );
         }
         const data = (
-            <div className="post-row col-lg-8 col-lg-offset-2">{posts}</div>
+            <div className="post-row col-lg-8 col-lg-offset-2 content">
+                {posts}
+            </div>
         );
         const type = this.props.type;
 

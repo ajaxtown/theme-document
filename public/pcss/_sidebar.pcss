@@ -1,6 +1,7 @@
 .sidebar {
     position: fixed;
     width: 250px;
+    margin-top: 61px;
     background-color: var(--color-bg-secondary);
     height: 100%;
     top: 0;
@@ -10,10 +11,18 @@
     background-position: center center;
     background-size: cover;
     border-right: 1px solid #eee;
+    .navbar-toggle {
+        display: none;
+    }
     a {
         color: rgba(255, 255, 255, 0.7);
         &:hover {
             color: var(--link-hover);
+        }
+    }
+    .search-box {
+        input {
+            padding-left: 35px;
         }
     }
     .copyright {
@@ -35,55 +44,28 @@
         width: 95%;
     }
 }
-
+.navbar-brand {
+    font-weight: 600;
+    font-size: 23px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-text-primary);
+    width: 100vw;
+    small {
+        display: block;
+        font-size: 12px;
+        font-family: "Source Sans Pro", sans-serif;
+    }
+}
 .nav.child_menu {
     display: block;
 }
 
-@media screen and (max-width: 767px) {
-    .row-offcanvas {
-        position: relative;
-        -webkit-transition: all 0.25s ease-out;
-        -moz-transition: all 0.25s ease-out;
-        transition: all 0.25s ease-out;
-    }
-    .row-offcanvas-right .sidebar-offcanvas {
-        right: -41.6%;
-    }
-    .row-offcanvas-left .sidebar-offcanvas {
-        left: -41.6%;
-    }
-    .row-offcanvas-right.active {
-        right: 41.6%;
-    }
-    .row-offcanvas-left.active {
-        left: 41.6%;
-    }
-    .sidebar-offcanvas {
-        position: absolute;
-        top: 0;
-        width: 41.6%;
-    }
-    #sidebar {
-        padding-top: 0;
-    }
-}
-
-@media (max-width: 991px) {
-    .sidebar {
-        position: relative;
-        z-index: 99999;
-        height: auto;
-        width: 100%;
-        padding: 0;
-        &:after {
-            content: normal;
+@media (max-width: 767px) {
+    .navbar-toggle {
+        display: block;
+        .icon-bar {
+            background: #000;
         }
-        .copyright {
-            display: none;
-        }
-    }
-    .wrapper {
-        margin-left: 0;
     }
 }
