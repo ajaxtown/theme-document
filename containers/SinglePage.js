@@ -11,7 +11,7 @@ class SinglePage extends Component {
         if (this.props.loading) {
             return <Loader />;
         }
-        if (this.props.page === null) {
+        if (this.props.page === null || !this.props.page.ok) {
             return (
                 <OhSnap message="Sorry, this page does not exist or might be restricted." />
             );

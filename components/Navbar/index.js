@@ -14,6 +14,12 @@ class Navbar extends Component {
                         router={this.props.router}
                     />
                 </div>
+                <div
+                    className="footer"
+                    dangerouslySetInnerHTML={{
+                        __html: this.props.settings.site_footer.value
+                    }}
+                />
             </div>
         );
     }
