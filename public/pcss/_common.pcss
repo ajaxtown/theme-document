@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,500,600,700");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
-@import url("http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/github.min.css");
+@import url("https://cdn.jsdelivr.net/highlight.js/9.8.0/styles/github.min.css");
 
 /*! -----------------------------------------------------------------
 [Master Stylesheet]
@@ -13,6 +13,10 @@ Primary use: Blog
 ------------------------------------------------------------------
 [General Styles]
 */
+* {
+    margin: 0px;
+    padding: 0px;
+}
 
 html {
     height: 100%;
@@ -123,6 +127,7 @@ a {
     -moz-transition: all 0.125s cubic-bezier(0.3, 0.1, 0.58, 1);
     -o-transition: all 0.125s cubic-bezier(0.3, 0.1, 0.58, 1);
     transition: all 0.125s cubic-bezier(0.3, 0.1, 0.58, 1);
+    text-decoration: none;
 }
 
 a:hover,
@@ -235,6 +240,7 @@ ul {
 */
 
 .form-control {
+    width: 100%;
     border: 0;
     height: 36px;
     padding: 13px 0px;

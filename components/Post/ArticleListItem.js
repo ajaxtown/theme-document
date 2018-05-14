@@ -8,7 +8,7 @@ class ArticleListItem extends Component {
         let href = `/${this.props.post.type}/${this.props.post.slug}`;
         return (
             <div>
-                {this.props.post.cover_image && (
+                {this.props.post.cover_image != "" && (
                     <div className="post-thumbnail">
                         <Link to={href}>
                             <img
