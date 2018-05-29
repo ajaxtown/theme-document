@@ -52,6 +52,9 @@ class SinglePost extends Component {
 SinglePost.propTypes = {
     post: PropTypes.object,
     loading: PropTypes.bool,
-    adjacentPosts: PropTypes.object
+    adjacentPosts: PropTypes.object,
+    adjPostsLoading: PropTypes.bool,
+    match: PropTypes.object,
+    settings: PropTypes.settings
 };
 export default AdjacentPostsData(SinglePostData(SinglePost));

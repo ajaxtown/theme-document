@@ -6,8 +6,7 @@ require("../../public/pcss/client.pcss");
 
 export default function Layout(Element, props) {
     const settings = props.settings;
-    const layout = settings.layout_display.value;
-
+    const name = Element.name;
     class Main extends Component {
         constructor(props) {
             super(props);
@@ -58,7 +57,14 @@ export default function Layout(Element, props) {
                             <span className="icon-bar" />
                         </button>
                         <Link className="navbar-brand brand" to="/">
-                            {settings.site_title.value}
+                            {settings.site_logo.value && (
+                                <img
+                                    height="30"
+                                    src={settings.site_logo.value}
+                                />
+                            )}
+                            {!settings.site_logo.value &&
+                                settings.site_title.value}
                         </Link>
                     </header>
                     <nav className="navbar navbar-custom">

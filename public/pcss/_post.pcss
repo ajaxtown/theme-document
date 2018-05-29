@@ -86,7 +86,6 @@
 
         /*Font*/
         font-size: var(--fs-medium);
-        line-height: 1.2;
         text-align: justify;
 
         /*Borders - (Optional)*/
@@ -97,6 +96,10 @@
         -moz-box-shadow: 2px 2px 15px #ccc;
         -webkit-box-shadow: 2px 2px 15px #ccc;
         box-shadow: 2px 2px 15px #ccc;
+
+        p {
+            margin-bottom: 0px;
+        }
     }
 }
 
@@ -119,6 +122,21 @@
         blockquote {
             margin-left: 0;
             margin-right: 0;
+        }
+    }
+}
+
+.posts-page {
+    .post-row > div {
+        box-shadow: -2px 2px 22px 2px #eee;
+        margin-bottom: 30px;
+    }
+}
+
+@media all and (min-width: 767px) {
+    .posts-page {
+        .post-row > div {
+            margin-bottom: 80px;
         }
     }
 }

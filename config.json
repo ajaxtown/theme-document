@@ -1,6 +1,7 @@
 {
     "name": "Document",
-    "description": "A theme for writing documentations",
+    "description":
+        "A lightweight theme for writing stories. SEO optimised, responsive, 2 column layout",
     "author": "Abhishek Saha",
-    "thumbnail": "http://www.hcxypz.com/data/out/149/648637.jpeg"
+    "thumbnail": "/images/thumbnail.png"
 }

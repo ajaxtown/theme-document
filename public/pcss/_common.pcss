@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,500,600,700");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
-@import url("https://cdn.jsdelivr.net/highlight.js/9.8.0/styles/github.min.css");
+@import url("https://cdn.jsdelivr.net/highlight.js/9.8.0/styles/androidstudio.min.css");
 
 /*! -----------------------------------------------------------------
 [Master Stylesheet]
@@ -37,7 +37,7 @@ body {
 .hljs code {
     text-shadow: none;
     box-shadow: none;
-    color: initial;
+    color: inherit;
     background: none;
     font-size: 13px;
 }
@@ -53,11 +53,6 @@ code {
     font-family: "Operator Mono", "Fira Code", Consolas, Monaco, "Andale Mono",
         monospace;
     font-weight: 600;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
 }
 
 iframe {
@@ -101,7 +96,9 @@ textarea.CodeFlask__textarea {
     color: var(--color-text-muted) !important;
     font-weight: 300;
 }
-
+.sr-only {
+    display: none;
+}
 .navbar-toggle {
     background: transparent;
     border: none;
@@ -110,9 +107,9 @@ textarea.CodeFlask__textarea {
     cursor: pointer;
 }
 .icon-bar {
-    height: 3px;
+    height: 2px;
     background: #2d2d2d;
-    width: 20px;
+    width: 15px;
     display: block;
     margin: 3px 0px;
 }

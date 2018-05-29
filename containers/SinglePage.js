@@ -47,7 +47,9 @@ class SinglePage extends Component {
 
 SinglePage.propTypes = {
     page: PropTypes.object,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    match: PropTypes.object,
+    settings: PropTypes.settings
 };
 
 export default SinglePageData(SinglePage);

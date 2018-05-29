@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import AdjacentPosts from "./AdjacentPosts";
 
 export default class Article extends Component {
+    componentDidMount() {
+        setTimeout(() => {
+            document.querySelectorAll(".hljs").forEach(hljs.highlightBlock);
+        }, 10);
+    }
     render() {
         const tags = [];
         const categories = [];
