@@ -22,7 +22,9 @@ const WithResize = WrappedComonent => {
         }
         componentWillUnmount() {
             this.mounted = false;
-            window.removeEventListener("resize", this.onResize);
+            if (typeof window !== "undefined") {
+                window.removeEventListener("resize", this.onResize);
+            }
         }
         setResizeTracker(tracker) {
             this.tracker = tracker;
