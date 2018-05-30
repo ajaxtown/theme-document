@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import siteConfig from "config";
 
 require("../../public/pcss/client.pcss");
 
@@ -60,7 +61,10 @@ export default function Layout(Element, props) {
                             {settings.site_logo.value && (
                                 <img
                                     height="30"
-                                    src={settings.site_logo.value}
+                                    src={
+                                        siteConfig.baseName +
+                                        settings.site_logo.value
+                                    }
                                 />
                             )}
                             {!settings.site_logo.value &&
