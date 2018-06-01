@@ -32,7 +32,7 @@ class SinglePage extends Component {
                     schema="BlogPosting"
                     title={post.title}
                     description={post.excerpt}
-                    path={"/post/" + this.props.match.params.slug}
+                    path={this.props.location.pathname}
                     contentType="article"
                     category={categories.join(",")}
                     tags={tags}
@@ -48,7 +48,7 @@ class SinglePage extends Component {
 SinglePage.propTypes = {
     page: PropTypes.object,
     loading: PropTypes.bool,
-    match: PropTypes.object,
+    location: PropTypes.object,
     settings: PropTypes.settings
 };
 

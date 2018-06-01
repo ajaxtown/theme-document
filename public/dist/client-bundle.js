@@ -828,6 +828,10 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactHelmet = __webpack_require__(/*! react-helmet */ "./node_modules/react-helmet/lib/Helmet.js");
 
+var _config = __webpack_require__(/*! ../../config */ "./config/index.js");
+
+var _config2 = _interopRequireDefault(_config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (function () {
@@ -862,6 +866,7 @@ var getMetaTags = function getMetaTags(_ref) {
 
     return metaTags;
 };
+var mainUrl = _config2.default.rootUrl + _config2.default.baseName;
 
 var SEO = function SEO(props) {
     return _react2.default.createElement(_reactHelmet.Helmet, {
@@ -871,7 +876,10 @@ var SEO = function SEO(props) {
             itemtype: "http://schema.org/" + props.schema
         },
         title: props.title,
-        link: [{ rel: "canonical", href: props.path }],
+        link: [{
+            rel: "canonical",
+            href: mainUrl + props.path
+        }],
         meta: getMetaTags(_extends({}, props))
     });
 };
@@ -906,6 +914,7 @@ exports.default = _default2;
     }
 
     reactHotLoader.register(getMetaTags, "getMetaTags", "/Users/ajaxtown/Sites/ReactCMS/client/helpers/SEO.js");
+    reactHotLoader.register(mainUrl, "mainUrl", "/Users/ajaxtown/Sites/ReactCMS/client/helpers/SEO.js");
     reactHotLoader.register(SEO, "SEO", "/Users/ajaxtown/Sites/ReactCMS/client/helpers/SEO.js");
     reactHotLoader.register(_default, "default", "/Users/ajaxtown/Sites/ReactCMS/client/helpers/SEO.js");
     reactHotLoader.register(_default2, "default", "/Users/ajaxtown/Sites/ReactCMS/client/helpers/SEO.js");
@@ -2139,6 +2148,10 @@ var _Navbar = __webpack_require__(/*! ../../components/Navbar */ "./client/theme
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
+var _config = __webpack_require__(/*! config */ "./config/index.js");
+
+var _config2 = _interopRequireDefault(_config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (function () {
@@ -2239,7 +2252,7 @@ function Layout(Element, props) {
                             { className: "navbar-brand brand", to: "/" },
                             settings.site_logo.value && _react2.default.createElement("img", {
                                 height: "30",
-                                src: settings.site_logo.value
+                                src: _config2.default.baseName + settings.site_logo.value
                             }),
                             !settings.site_logo.value && settings.site_title.value
                         )
@@ -3172,7 +3185,7 @@ var SinglePage = function (_Component) {
                     schema: "BlogPosting",
                     title: post.title,
                     description: post.excerpt,
-                    path: "/post/" + this.props.match.params.slug,
+                    path: this.props.location.pathname,
                     contentType: "article",
                     category: categories.join(","),
                     tags: tags,
@@ -3195,7 +3208,7 @@ var SinglePage = function (_Component) {
 SinglePage.propTypes = {
     page: _propTypes2.default.object,
     loading: _propTypes2.default.bool,
-    match: _propTypes2.default.object,
+    location: _propTypes2.default.object,
     settings: _propTypes2.default.settings
 };
 
@@ -3318,7 +3331,7 @@ var SinglePage = function (_Component) {
                     schema: "BlogPosting",
                     title: post.title,
                     description: post.excerpt,
-                    path: "/post/" + this.props.match.params.slug,
+                    path: this.props.location.pathname,
                     contentType: "article",
                     category: categories.join(","),
                     tags: tags,
@@ -3341,7 +3354,7 @@ var SinglePage = function (_Component) {
 SinglePage.propTypes = {
     page: _propTypes2.default.object,
     loading: _propTypes2.default.bool,
-    match: _propTypes2.default.object,
+    location: _propTypes2.default.object,
     settings: _propTypes2.default.settings
 };
 
