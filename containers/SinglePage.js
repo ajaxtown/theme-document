@@ -39,7 +39,7 @@ class SinglePage extends Component {
                     image={post.cover_image}
                     settings={this.props.settings || {}}
                 />
-                <Article post={post} />
+                <Article post={post} settings={this.props.settings} />
             </div>
         );
     }
@@ -49,7 +49,7 @@ SinglePage.propTypes = {
     page: PropTypes.object,
     loading: PropTypes.bool,
     location: PropTypes.object,
-    settings: PropTypes.settings
+    settings: PropTypes.object
 };
 
 export default SinglePageData(SinglePage);

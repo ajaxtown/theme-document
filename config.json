@@ -1,5 +1,6 @@
 {
     "name": "Document",
+    "short_name": "document",
     "description":
         "A lightweight theme for writing stories. SEO optimised, responsive, 2 column layout",
     "author": "Abhishek Saha",

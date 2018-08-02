@@ -47,21 +47,19 @@ class Posts extends Component {
             );
         }
 
-        const posts = (
-            <div className="post-row col-lg-8 content col-lg-offset-2">
-                {this.props.posts.map((post, i) => {
-                    return <ArticleListItem idx={i} key={i} post={post} />;
-                })}
-            </div>
-        );
-
         return (
-            <Paginate
-                data={posts}
-                count={this.props.total}
-                page={this.page}
-                loadMore={this.loadMore}
-            />
+            <div className="post-row col-lg-8 content col-lg-offset-2">
+                {this.props.posts.map((post, i) => (
+                    <ArticleListItem idx={i} key={i} post={post} />
+                ))}
+
+                <Paginate
+                    count={this.props.total}
+                    match={this.props.match}
+                    page={this.page}
+                    loadMore={this.loadMore}
+                />
+            </div>
         );
     }
 }

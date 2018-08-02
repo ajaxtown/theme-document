@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,500,600,700");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
-@import url("https://cdn.jsdelivr.net/highlight.js/9.8.0/styles/androidstudio.min.css");
 
 /*! -----------------------------------------------------------------
 [Master Stylesheet]
 
-Project:     Ajaxtown
+Project:     Document Theme for Letterpad
 Version:     1.0
 Last change: 21/03/2017
 Primary use: Blog
@@ -181,7 +180,7 @@ h6 {
     font-family: "Roboto Condensed", sans-serif;
     letter-spacing: 1px;
     font-weight: 400;
-    margin: 0 0 20px;
+    margin: 20px 0 10px;
 }
 
 h1 {
@@ -211,14 +210,18 @@ h6 {
 p,
 ul,
 ol {
-    margin: 0 0 30px;
+    margin: 0 0 10px;
 }
-
+ul,
+ol {
+    padding: 0px 15px 0;
+}
 pre {
     border: 0;
     line-height: 1.9;
     font-size: 12px;
-    padding: 35px;
+    padding: 15px;
+    overflow-x: auto;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -o-border-radius: 2px;
@@ -231,6 +234,12 @@ ul {
     list-style: none;
 }
 
+hr {
+    margin: 40px 0px;
+    height: 1px;
+    border: none;
+    background: #eee;
+}
 .lead {
     line-height: 1.8;
     font-size: 18px;

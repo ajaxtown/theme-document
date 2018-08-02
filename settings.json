@@ -1,0 +1,19 @@
+[
+    {
+        "name": "toc-tag",
+        "tag": "select",
+        "defaultValue": "none",
+        "options": ["none", "h2", "h3", "h4", "h5", "h6"],
+        "label": "Which tag would you like to render for table of contents ?",
+        "helpText": "Help text: None"
+    },
+    {
+        "name": "min-heads",
+        "tag": "select",
+        "defaultValue": 3,
+        "options": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "label":
+            "Dont display table of contents if the headings are less than:",
+        "helpText": "Help text: Something"
+    }
+]

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar";
+import Navbar from "../components/Navbar";
 import siteConfig from "config";
 
-require("../../public/pcss/client.pcss");
+require("../public/pcss/client.pcss");
 
 export default function Layout(Element, props) {
     const settings = props.settings;

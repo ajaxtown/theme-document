@@ -46,9 +46,18 @@ aside {
         main {
             transition: all 0.2s linear;
             .content {
-                max-width: 767px;
                 margin: auto;
                 margin-top: 40px;
+                width: 100%;
+            }
+            .table-of-contents {
+                margin-left: 20px;
+
+                .inner-toc {
+                    position: fixed;
+                    width: 223px;
+                    font-size: 13px;
+                }
             }
         }
     }
@@ -58,14 +67,23 @@ aside {
             transform: translateX(-250px);
             .content {
                 width: 100vw;
+                margin: 40px 0px;
             }
         }
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
         .content {
             width: 100vw;
             overflow: hidden;
+        }
+        .table-of-contents {
+            display: none;
+        }
+    }
+    @media (max-width: 991px) {
+        .table-of-contents {
+            display: none;
         }
     }
 }

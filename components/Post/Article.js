@@ -1,13 +1,56 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import styled from "styled-components";
+import TableOfContents from "./TableOfContents";
+
+const ArticleHolder = styled.div`
+    padding: 20px 40px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+`;
 
 export default class Article extends Component {
+    state = {
+        headings: []
+    };
+
+    headingsMapper = {};
+
+    getHeadings = () => {
+        const htmlString = this.props.post.body || "";
+        const h = this.props.settings.themeConfig["toc-tag"];
+        const regex = new RegExp(
+            "<" + h + "[^>]*>([\\s\\S]*?)</" + h + ">",
+            "g"
+        );
+
+        const headings = (htmlString.match(regex) || []).map((tag, index) => {
+            const headingText = tag.replace(/<\/?[^>]+(>|$)/g, "");
+            this.headingsMapper[headingText] = index;
+            return headingText;
+        });
+        if (headings.length >= this.props.settings.themeConfig["min-heads"]) {
+            this.setState({ headings });
+        }
+    };
+
     componentDidMount() {
-        setTimeout(() => {
-            document.querySelectorAll(".hljs").forEach(hljs.highlightBlock);
-        }, 10);
+        if (this.props.settings && this.props.settings.themeConfig["toc-tag"] != "none") {
+            this.getHeadings();
+        }
     }
+
+    scrollToHeading = e => {
+        e.preventDefault();
+        const qs = handle => document.querySelector(handle);
+        const headingIndex = this.headingsMapper[e.target.innerText] + 1;
+        const heading = qs("h2:nth-of-type(" + headingIndex + ")");
+
+        window.scrollTo(0, heading.offsetTop - 80);
+    };
+
     render() {
         const tags = [];
         const categories = [];
@@ -27,10 +70,10 @@ export default class Article extends Component {
                 );
             }
         });
-        const content = post.mode == "markdown" ? post.mdPreview : post.body;
+
         return (
-            <div className="col-lg-8 col-lg-offset-2 content">
-                <div className="card">
+            <div className="content">
+                <ArticleHolder>
                     <article className="post">
                         <div className="post-header">
                             <h2 className="post-title font-alt">
@@ -45,15 +88,20 @@ export default class Article extends Component {
                                 )}
                             </div>
                         </div>
-                        <div className="post-content ql-editor fs-medium">
+                        <div className="post-content fs-medium">
                             <p
                                 dangerouslySetInnerHTML={{
-                                    __html: content
+                                    __html: post.body
                                 }}
                             />
                         </div>
                     </article>
-                </div>
+
+                    <TableOfContents
+                        headings={this.state.headings}
+                        scrollToHeading={this.scrollToHeading}
+                    />
+                </ArticleHolder>
             </div>
         );
     }
