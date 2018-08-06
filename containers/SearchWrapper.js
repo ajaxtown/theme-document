@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import ArticleListItem from "../components/Post/ArticleListItem";
 import appoloClient from "shared/apolloClient";
+import { EventBusInstance } from "shared/eventBus";
 import config from "config";
 import Loader from "../components/Loader";
-import { SEARCH_POSTS_BY_TAXONOMY, SEARCH_POSTS } from "shared/queries/Queries";
+import {
+    SEARCH_POSTS_BY_TAXONOMY,
+    SEARCH_POSTS_FUZY
+} from "shared/queries/Queries";
 import Paginate from "client/helpers/Paginate";
 import OhSnap from "client/helpers/OhSnap";
 
@@ -19,40 +23,47 @@ export default class SearchWrapper extends Component {
                 tag: 1,
                 post: 1
             },
-            total: 0
+            total: 0,
+            isSearch: false
         };
     }
 
     componentDidMount() {
-        this.loadData();
+        EventBusInstance.on("SEARCH_QUERY", data => {
+            if (data.query == "") {
+                this.setState({ posts: [], total: 0, isSearch: false });
+                return;
+            }
+            this.loadData(data);
+        });
+
         document.body.classList.add("search-page");
     }
     componentWillUnmount() {
         document.body.classList.remove("search-page");
     }
 
-    async loadData(num = 1) {
-        const term = this.props.type;
+    async loadData({ query, type }) {
+        const term = type;
+        const num = 1;
         const offset = (num - 1) * config.itemsPerPage;
+
         if (term === "post") {
             let result = await appoloClient().query({
-                query: SEARCH_POSTS,
+                query: SEARCH_POSTS_FUZY,
                 variables: {
-                    query: JSON.stringify({
-                        $like: "%" + this.props.match.params.query + "%"
-                    }),
-                    limit: config.itemsPerPage,
-                    offset: offset
+                    query: query
                 }
             });
             this.setState({
                 loading: false,
-                posts: [...this.state.posts, ...result.data.posts.rows],
-                total: result.data.posts.count,
+                posts: [...result.data.search.posts],
+                total: result.data.search.count,
                 pageNo: {
                     ...this.state.pageNo,
                     post: num
-                }
+                },
+                isSearch: true
             });
         } else if (term === "category") {
             let result = await appoloClient().query({
@@ -75,7 +86,8 @@ export default class SearchWrapper extends Component {
                 pageNo: {
                     ...this.state.pageNo,
                     category: num
-                }
+                },
+                isSearch: true
             });
         } else if (term === "tag") {
             let result = await appoloClient().query({
@@ -95,37 +107,48 @@ export default class SearchWrapper extends Component {
                 pageNo: {
                     ...this.state.pageNo,
                     tag: num
-                }
+                },
+                isSearch: true
             });
         }
     }
 
     render() {
-        if (this.state.loading) {
+        if (this.state.loading && this.state.isSearch) {
             return <Loader />;
         }
         const posts = this.state.posts.map((post, i) => (
             <ArticleListItem idx={i} key={i} post={post} />
         ));
+        if (!this.state.isSearch) {
+            return (
+                <div className="post-row p-t-30 card content">
+                    Start your search...
+                </div>
+            );
+        }
         if (posts.length === 0) {
             return (
                 <OhSnap message="We couldn't find anything related to your search" />
             );
         }
+
         const data = (
             <div className="post-row col-lg-8 col-lg-offset-2 content">
                 {posts}
             </div>
         );
-        const type = this.props.type;
 
         return (
-            <Paginate
-                data={data}
-                count={this.state.total}
-                page={this.state.pageNo[type]}
-                loadMore={this.loadData}
-            />
+            <React.Fragment>
+                {data}
+                {config.itemsPerPage < this.state.total && (
+                    <Paginate
+                        count={this.state.total}
+                        match={this.props.match}
+                    />
+                )}
+            </React.Fragment>
         );
     }
 }

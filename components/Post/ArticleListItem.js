@@ -5,10 +5,10 @@ import LazyLoad from "./LazyLoad";
 
 class ArticleListItem extends Component {
     render() {
-        let href = `/${this.props.post.type}/${this.props.post.slug}`;
+        let href = `/page/${this.props.post.slug}`;
         return (
             <div>
-                {this.props.post.cover_image != "" && (
+                {/*this.props.post.cover_image != "" && (
                     <div className="post-thumbnail">
                         <Link to={href}>
                             <img
@@ -19,7 +19,7 @@ class ArticleListItem extends Component {
                             />
                         </Link>
                     </div>
-                )}
+                )*/}
                 <div className="card">
                     <article className="post">
                         <div className="post-header">
@@ -28,15 +28,13 @@ class ArticleListItem extends Component {
                             </h2>
                             <div className="post-meta">
                                 {moment(
-                                    new Date(this.props.post.created_at)
+                                    new Date(this.props.post.published_at)
                                 ).format("LL")}
                             </div>
                         </div>
                         <div className="post-content">
                             <p>{this.props.post.excerpt}</p>
-                            <Link className="post-more" to={href}>
-                                Read more
-                            </Link>
+                            <Link to={href}>Read more</Link>
                         </div>
                     </article>
                 </div>
