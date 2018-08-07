@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, {
+    Component
+} from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
 import ArticleListItem from "../components/Post/ArticleListItem";
 import appoloClient from "shared/apolloClient";
 import { EventBusInstance } from "shared/eventBus";
-import config from "config";
+import config from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/config";
 import Loader from "../components/Loader";
 import {
     SEARCH_POSTS_BY_TAXONOMY,
@@ -12,21 +14,17 @@ import Paginate from "client/helpers/Paginate";
 import OhSnap from "client/helpers/OhSnap";
 
 export default class SearchWrapper extends Component {
-    constructor(props) {
-        super(props);
-        this.loadData = this.loadData.bind(this);
-        this.state = {
-            loading: true,
-            posts: [],
-            pageNo: {
-                category: 1,
-                tag: 1,
-                post: 1
-            },
-            total: 0,
-            isSearch: false
-        };
-    }
+    state = {
+        loading: true,
+        posts: [],
+        pageNo: {
+            category: 1,
+            tag: 1,
+            post: 1
+        },
+        total: 0,
+        isSearch: false
+    };
 
     componentDidMount() {
         EventBusInstance.on("SEARCH_QUERY", data => {
@@ -36,14 +34,14 @@ export default class SearchWrapper extends Component {
             }
             this.loadData(data);
         });
-
+        this.loadData();
         document.body.classList.add("search-page");
     }
     componentWillUnmount() {
         document.body.classList.remove("search-page");
     }
 
-    async loadData({ query, type }) {
+    loadData = async ({ query, type }) => {
         const term = type;
         const num = 1;
         const offset = (num - 1) * config.itemsPerPage;
@@ -111,7 +109,7 @@ export default class SearchWrapper extends Component {
                 isSearch: true
             });
         }
-    }
+    };
 
     render() {
         if (this.state.loading && this.state.isSearch) {
