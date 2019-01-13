@@ -8,66 +8,62 @@ import OhSnap from "client/helpers/OhSnap";
 import PostsData from "shared/data-connectors/PostsData";
 
 class Posts extends Component {
-    constructor(props) {
-        super(props);
-        this.loadMore = this.loadMore.bind(this);
-        this.page = 1;
+  constructor(props) {
+    super(props);
+    this.loadMore = this.loadMore.bind(this);
+    this.page = 1;
+  }
+
+  componentDidMount() {
+    document.body.classList.add("posts-page");
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove("posts-page");
+  }
+  async loadMore(num) {
+    let result = await this.props.fetchMore({
+      type: "post_category",
+      slug: this.props.slug || this.props.match.params.slug,
+      postType: "post",
+      limit: config.itemsPerPage,
+      offset: (num - 1) * config.itemsPerPage,
+    });
+    this.page = num;
+  }
+
+  render() {
+    if (this.props.loading) {
+      return <Loader />;
+    }
+    if (!this.props.posts) {
+      return <OhSnap message={this.props.settings.search_notFound.value} />;
+    }
+    if (this.props.posts.length === 0) {
+      return <OhSnap message={this.props.settings.text_posts_empty.value} />;
     }
 
-    componentDidMount() {
-        document.body.classList.add("posts-page");
-    }
+    return (
+      <div className="post-row col-lg-8 content col-lg-offset-2">
+        {this.props.posts.map((post, i) => (
+          <ArticleListItem idx={i} key={i} post={post} />
+        ))}
 
-    componentWillUnmount() {
-        document.body.classList.remove("posts-page");
-    }
-    async loadMore(num) {
-        let result = await this.props.fetchMore({
-            type: "post_category",
-            slug: this.props.slug || this.props.match.params.slug,
-            postType: "post",
-            limit: config.itemsPerPage,
-            offset: (num - 1) * config.itemsPerPage
-        });
-        this.page = num;
-    }
-
-    render() {
-        if (this.props.loading) {
-            return <Loader />;
-        }
-        if (!this.props.posts) {
-            return (
-                <OhSnap message={this.props.settings.search_notFound.value} />
-            );
-        }
-        if (this.props.posts.length === 0) {
-            return (
-                <OhSnap message={this.props.settings.text_posts_empty.value} />
-            );
-        }
-
-        return (
-            <div className="post-row col-lg-8 content col-lg-offset-2">
-                {this.props.posts.map((post, i) => (
-                    <ArticleListItem idx={i} key={i} post={post} />
-                ))}
-
-                <Paginate
-                    count={this.props.total}
-                    match={this.props.match}
-                    page={this.page}
-                    loadMore={this.loadMore}
-                />
-            </div>
-        );
-    }
+        <Paginate
+          count={this.props.total}
+          match={this.props.match}
+          page={this.page}
+          loadMore={this.loadMore}
+        />
+      </div>
+    );
+  }
 }
 
 Posts.propTypes = {
-    posts: PropTypes.array,
-    total: PropTypes.number,
-    loading: PropTypes.bool,
-    fetchMore: PropTypes.func
+  posts: PropTypes.array,
+  total: PropTypes.number,
+  loading: PropTypes.bool,
+  fetchMore: PropTypes.func,
 };
 export default PostsData(Posts);

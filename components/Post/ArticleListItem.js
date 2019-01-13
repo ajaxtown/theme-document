@@ -4,11 +4,12 @@ import moment from "moment";
 import LazyLoad from "./LazyLoad";
 
 class ArticleListItem extends Component {
-    render() {
-        let href = `/page/${this.props.post.slug}`;
-        return (
-            <div>
-                {/*this.props.post.cover_image != "" && (
+  render() {
+    const { type, slug } = this.props.post;
+    let href = `/${type}/${slug}`;
+    return (
+      <div>
+        {/*this.props.post.cover_image != "" && (
                     <div className="post-thumbnail">
                         <Link to={href}>
                             <img
@@ -20,27 +21,25 @@ class ArticleListItem extends Component {
                         </Link>
                     </div>
                 )*/}
-                <div className="card">
-                    <article className="post">
-                        <div className="post-header">
-                            <h2 className="post-title font-alt">
-                                <Link to={href}>{this.props.post.title}</Link>
-                            </h2>
-                            <div className="post-meta">
-                                {moment(
-                                    new Date(this.props.post.published_at)
-                                ).format("LL")}
-                            </div>
-                        </div>
-                        <div className="post-content">
-                            <p>{this.props.post.excerpt}</p>
-                            <Link to={href}>Read more</Link>
-                        </div>
-                    </article>
-                </div>
+        <div className="card">
+          <article className="post">
+            <div className="post-header">
+              <h2 className="post-title font-alt">
+                <Link to={href}>{this.props.post.title}</Link>
+              </h2>
+              <div className="post-meta">
+                {moment(new Date(this.props.post.published_at)).format("LL")}
+              </div>
             </div>
-        );
-    }
+            <div className="post-content">
+              <p>{this.props.post.excerpt}</p>
+              <Link to={href}>Read more</Link>
+            </div>
+          </article>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default LazyLoad(ArticleListItem);

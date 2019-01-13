@@ -6,83 +6,79 @@ import siteConfig from "config";
 require("../public/pcss/client.pcss");
 
 export default function Layout(Element, props) {
-    const { settings } = props;
-    class Main extends Component {
-        state = {
-            sidebarOpen: true
-        };
-        mounted = false;
+  const { settings } = props;
+  class Main extends Component {
+    state = {
+      sidebarOpen: true,
+    };
+    mounted = false;
 
-        componentWillMount = () => {
-            this.mounted = true;
-            if (typeof window !== "undefined") {
-                window.addEventListener("resize", this.onResize);
-                this.onResize();
-            }
-        };
-        componentWillUnmount = () => {
-            if (typeof window !== "undefined") {
-                window.removeEventListener("resize", this.onResize);
-            }
-        };
+    componentWillMount = () => {
+      this.mounted = true;
+      if (typeof window !== "undefined") {
+        window.addEventListener("resize", this.onResize);
+        this.onResize();
+      }
+    };
+    componentWillUnmount = () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", this.onResize);
+      }
+    };
 
-        onResize = () => {
-            if (!this.mounted) return false;
-            if (document.body.clientWidth < 768) {
-                this.setState({ sidebarOpen: false });
-            } else {
-                this.setState({ sidebarOpen: true });
-            }
-        };
+    onResize = () => {
+      if (!this.mounted) return false;
+      if (document.body.clientWidth < 768) {
+        this.setState({ sidebarOpen: false });
+      } else {
+        this.setState({ sidebarOpen: true });
+      }
+    };
 
-        sidebarToggle = () => {
-            this.setState({ sidebarOpen: !this.state.sidebarOpen });
-        };
-        render() {
-            const _props = { ...this.props, ...props };
-            const classes = this.state.sidebarOpen ? "" : " collapsed";
-            return (
-                <div className={"main two-column" + classes}>
-                    <header>
-                        <button
-                            type="button"
-                            className="navbar-toggle collapsed"
-                            onClick={this.sidebarToggle}
-                        >
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar" />
-                            <span className="icon-bar" />
-                            <span className="icon-bar" />
-                        </button>
-                        <Link className="navbar-brand brand" to="/">
-                            {settings.site_logo.value && (
-                                <img
-                                    height="30"
-                                    src={
-                                        siteConfig.baseName +
-                                        settings.site_logo.value
-                                    }
-                                />
-                            )}
-                            {!settings.site_logo.value &&
-                                settings.site_title.value}
-                        </Link>
-                    </header>
-                    <nav className="navbar navbar-custom">
-                        <div className="sidebar">
-                            <Navbar
-                                settings={settings}
-                                position="left"
-                                router={{ ...this.props }}
-                            />
-                        </div>
-                    </nav>
-                    <main>
-                        <Element {..._props} />
-                    </main>
-                </div>
-            );
-        }
+    sidebarToggle = () => {
+      this.setState({ sidebarOpen: !this.state.sidebarOpen });
+    };
+    render() {
+      const _props = { ...this.props, ...props };
+      const classes = this.state.sidebarOpen ? "" : " collapsed";
+      return (
+        <div className={"main two-column" + classes}>
+          <header>
+            <button
+              type="button"
+              className="navbar-toggle collapsed"
+              onClick={this.sidebarToggle}
+            >
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+            </button>
+            <Link className="navbar-brand brand" to="/">
+              {settings.site_logo.value && (
+                <img
+                  height="30"
+                  src={siteConfig.baseName + settings.site_logo.value}
+                />
+              )}
+              {!settings.site_logo.value && settings.site_title.value}
+            </Link>
+          </header>
+          <nav className="navbar navbar-custom">
+            <div className="sidebar">
+              <Navbar
+                settings={settings}
+                position="left"
+                router={{ ...this.props }}
+              />
+            </div>
+          </nav>
+          <main>
+            <Element {..._props} />
+          </main>
+        </div>
+      );
     }
-    return Main;
+  }
+  return Main;
 }
